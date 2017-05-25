@@ -10,7 +10,7 @@ class Fighter {
 	setDamage(damage) {
 		this.health -= damage;
 		console.log( `damage: ${damage}` ); 		
-		console.log(`Fighter's name ${this.name} Health: ${this.health}`);    
+		console.log(`\"${this.name}\"'s current health status: ${this.health}`);    
     }
 	hit(enemy, point) {
 		let damage = enemy.power*point;		
@@ -48,10 +48,10 @@ let fight = (fighter, improvedFighter, ...points) => {
 			break;
 		}	
 	}
-	return console.log(`THE GAME IS OVER!!! Fighter \"${nameWinner}\" won!`);
+	return console.log(`THE GAME IS OVER!!! The Fighter \"${nameWinner}\" won!`);
 };
 
-let fighter         = new Fighter('Fighter', 10, 1000);
+let fighter = new Fighter('Fighter', 10, 1000);
 let improvedFighter = new ImprovedFighter('ImprovedFighter', 10, 1500);
 
 fight(fighter, improvedFighter, 25, 13, 45);
