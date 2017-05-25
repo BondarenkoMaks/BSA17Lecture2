@@ -8,14 +8,13 @@ class Fighter {
 	}
 
 	setDamage(damage) {
-		this.health -= damage;  
+		this.health -= damage;
+		console.log( `damage: ${damage}` ); 		
 		console.log(`Fighter's name ${this.name} Health: ${this.health}`);    
     }
 	hit(enemy, point) {
-		let damage = enemy.power*point;
-		enemy.setDamage(damage);
-	
-		console.log( `damage: ${damage}` );    
+		let damage = enemy.power*point;		
+		enemy.setDamage(damage);		   
     }
 };
 
@@ -30,19 +29,26 @@ class ImprovedFighter extends Fighter {
 }
 
 let fight = (fighter, improvedFighter, ...points) => {
+	let nameWinner = '';
+	let currentPoint;
 	for(let i = 0; true; i++){	
-		let currentPoint = points[i % points.length];
-		if (improvedFighter.health > 0) {
-			fighter.hit(improvedFighter, currentPoint);
-		} else {
-			return console.log(`THE GAME IS OVER!!! Fighter \"${fighter.name}\" won!`);
+		currentPoint = points[i % points.length];
+		
+		fighter.hit(improvedFighter, currentPoint);
+		
+		if (improvedFighter.health <= 0) {		
+			nameWinner = fighter.name;
+			break;
 		}
-		if (fighter.health > 0){
-			improvedFighter.doubleHit(fighter, currentPoint)
-		} else {		
-			return console.log(`THE GAME IS OVER!!! Fighter \"${improvedFighter.name}\" won!`);
+		
+		improvedFighter.doubleHit(fighter, currentPoint);
+		
+		if (fighter.health <= 0){			
+			nameWinner = improvedFighter.name;
+			break;
 		}	
 	}
+	return console.log(`THE GAME IS OVER!!! Fighter \"${nameWinner}\" won!`);
 };
 
 let fighter         = new Fighter('Fighter', 10, 1000);
