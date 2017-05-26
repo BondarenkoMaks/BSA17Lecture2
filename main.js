@@ -38,7 +38,7 @@ function fight(fighter=NULL, improvedFighter=NULL, ...points) {
 	}
 	for(let i = 0, currentPoint; true; i++){	
 		currentPoint = points[i % points.length];    
-		if (!isNumeric(currentPoint) || currentPoint <= 0){
+		if (!isNumeric(currentPoint) && currentPoint <= 0){
 			console.log(`The parameter \"${fsetcurrentPoint}\" is incorrectly set!`); 
 			break;
 		}
