@@ -28,31 +28,38 @@ class ImprovedFighter extends Fighter {
   }
 }
 
-let fight = (fighter, improvedFighter, ...points) => {
-	let nameWinner = '';
-	let currentPoint;
-	for(let i = 0; true; i++){	
-		currentPoint = points[i % points.length];
+function fight(fighter=NULL, improvedFighter=NULL, ...points) {
+	if (!(fighter && fighter.hit && improvedFighter && improvedFighter.doubleHit && points.length > 0)) {
+ 		return console.log(`The parameters are incorrectly set!`);
+  }
+		
+	let isNumeric =(n)=>{
+		return !isNaN(parseFloat(n)) && isFinite(n);
+	}
+	for(let i = 0, currentPoint; true; i++){	
+		currentPoint = points[i % points.length];    
+		if (!isNumeric(currentPoint) || currentPoint <= 0){
+			console.log(`The parameter \"${fsetcurrentPoint}\" is incorrectly set!`); 
+			break;
+		}
 		
 		fighter.hit(improvedFighter, currentPoint);
 		
 		if (improvedFighter.health <= 0) {		
-			nameWinner = fighter.name;
+			console.log(`THE GAME IS OVER!!! The Fighter \"${fighter.name}\" won!`);
 			break;
 		}
 		
 		improvedFighter.doubleHit(fighter, currentPoint);
 		
-		if (fighter.health <= 0){			
-			nameWinner = improvedFighter.name;
+		if (fighter.health <= 0){				
+			console.log(`THE GAME IS OVER!!! The Fighter \"${improvedFighter.name}\" won!`);
 			break;
 		}	
 	}
-	return console.log(`THE GAME IS OVER!!! The Fighter \"${nameWinner}\" won!`);
 };
 
 let fighter = new Fighter('Fighter', 10, 1000);
 let improvedFighter = new ImprovedFighter('ImprovedFighter', 10, 1500);
 
 fight(fighter, improvedFighter, 25, 13, 45);
-
